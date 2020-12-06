@@ -10,7 +10,6 @@ COPY Gemfile Gemfile.lock ./
 RUN bundle install -j8
 COPY . .
 ENV DISABLE_SPRING=true
-RUN rails assets:precompile
 ENV RAILS_ENV=development
 
-CMD ['rails', 'server', '-b', '0.0.0.0']
+CMD ["rails", "server", "-b", "0.0.0.0"]
