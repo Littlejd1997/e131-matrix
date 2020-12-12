@@ -1,5 +1,5 @@
 import consumer from "../channels/consumer"
-window.pixel_buffer = []
+window.pixel_buffer = new Array(2500)
 consumer.subscriptions.create({ channel: "MatrixChannel" }, {
   received(data) {
     var start_pixel = 170 * (data.universe - 1)
