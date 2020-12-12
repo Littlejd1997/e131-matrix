@@ -6,6 +6,9 @@ consumer.subscriptions.create({ channel: "MatrixChannel" }, {
     var pixel_offset = 1
     var pixels = data.values
     var current_pixel = 0
+    if (start_pixel == 0){
+      window.pixel_buffer = []
+    }
 
     while (pixels.length > 0) {
       let red = pixels.shift()
@@ -14,20 +17,17 @@ consumer.subscriptions.create({ channel: "MatrixChannel" }, {
       current_pixel = pixel_offset + start_pixel
       // console.log(`setting ${pixel_offset + start_pixel} to rgb(${red},${green},${blue})`)
       try {
-        window.pixel_buffer[pixel_offset + start_pixel - 1 ] = {id: pixel_offset + start_pixel, color:`rgb(${red},${green},${blue})`}
+        window.pixel_buffer.push({id: pixel_offset + start_pixel, color:`rgb(${red},${green},${blue})`})
       }catch(error){
         console.log(`Failed to set pixel ${pixel_offset + start_pixel} to rgb(${red},${green},${blue})`)
       }
       pixel_offset++
     }
-    // let empty_pixels = window.pixel_buffer.reduce(function(x, y){ return x-1; }, window.pixel_buffer.length);
-    // console.log(window.pixel_buffer.length)
-
-    if (window.pixel_buffer.length == 2500){
+    console.log(current_pixel)
+    if (current_pixel == 2500){
       window.pixel_buffer.forEach(element => {
         document.getElementById(element.id).style.backgroundColor = element.color
       });
-      window.pixel_buffer = []
     }
   }
 })
