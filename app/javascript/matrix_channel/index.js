@@ -21,7 +21,7 @@ consumer.subscriptions.create({ channel: "MatrixChannel" }, {
       pixel_offset++
     }
     console.log(current_pixel)
-    empty_pixels = window.pixel_buffer.reduce(function(x, y){ return x-1; }, window.pixel_buffer.length);
+    let empty_pixels = window.pixel_buffer.reduce(function(x, y){ return x-1; }, window.pixel_buffer.length);
     if (empty_pixels == 0){
       window.pixel_buffer.forEach(element => {
         document.getElementById(element.id).style.backgroundColor = element.color
