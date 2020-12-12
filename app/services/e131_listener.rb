@@ -12,7 +12,7 @@ class E131Listener
       e.dmp_layer.property_values.bytes[1..].each_slice(3).each_with_index do |(red,green,blue), index|
         @framebuffer[start_pixel + index] = "rgb(#{red},#{green},#{blue})"
       end
-      if @framebuffer.size == 2500
+      if @framebuffer.size == 1449
         ActionCable.server.broadcast("matrix",
         {values: @framebuffer})
         @framebuffer = []
