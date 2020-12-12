@@ -14,14 +14,15 @@ consumer.subscriptions.create({ channel: "MatrixChannel" }, {
       current_pixel = pixel_offset + start_pixel
       // console.log(`setting ${pixel_offset + start_pixel} to rgb(${red},${green},${blue})`)
       try {
-        window.pixel_buffer[pixel_offset + start_pixel] = {id: pixel_offset + start_pixel, color:`rgb(${red},${green},${blue})`}
+        window.pixel_buffer[pixel_offset + start_pixel - 1 ] = {id: pixel_offset + start_pixel, color:`rgb(${red},${green},${blue})`}
       }catch(error){
         console.log(`Failed to set pixel ${pixel_offset + start_pixel} to rgb(${red},${green},${blue})`)
       }
       pixel_offset++
     }
-    console.log(current_pixel)
     let empty_pixels = window.pixel_buffer.reduce(function(x, y){ return x-1; }, window.pixel_buffer.length);
+    console.log(empty_pixels)
+
     if (empty_pixels == 0){
       window.pixel_buffer.forEach(element => {
         document.getElementById(element.id).style.backgroundColor = element.color
