@@ -1,5 +1,5 @@
 import consumer from "../channels/consumer"
-window.pixel_buffer = new Array(2500)
+window.pixel_buffer = []
 consumer.subscriptions.create({ channel: "MatrixChannel" }, {
   received(data) {
     var start_pixel = 170 * (data.universe - 1)
@@ -20,14 +20,14 @@ consumer.subscriptions.create({ channel: "MatrixChannel" }, {
       }
       pixel_offset++
     }
-    let empty_pixels = window.pixel_buffer.reduce(function(x, y){ return x-1; }, window.pixel_buffer.length);
-    console.log(empty_pixels)
+    // let empty_pixels = window.pixel_buffer.reduce(function(x, y){ return x-1; }, window.pixel_buffer.length);
+    // console.log(window.pixel_buffer.length)
 
-    if (empty_pixels == 0){
+    if (window.pixel_buffer.length == 2500){
       window.pixel_buffer.forEach(element => {
         document.getElementById(element.id).style.backgroundColor = element.color
       });
-      window.pixel_buffer = new Array(2500)
+      window.pixel_buffer = []
     }
   }
 })
