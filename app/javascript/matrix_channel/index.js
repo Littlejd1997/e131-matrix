@@ -6,9 +6,6 @@ consumer.subscriptions.create({ channel: "MatrixChannel" }, {
     var pixel_offset = 1
     var pixels = data.values
     var current_pixel = 0
-    if (start_pixel == 0){
-      window.pixel_buffer = []
-    }
 
     while (pixels.length > 0) {
       let red = pixels.shift()
@@ -24,10 +21,12 @@ consumer.subscriptions.create({ channel: "MatrixChannel" }, {
       pixel_offset++
     }
     console.log(current_pixel)
-    if (current_pixel == 2500){
+    empty_pixels = window.pixel_buffer.reduce(function(x, y){ return x-1; }, window.pixel_buffer.length);
+    if (empty_pixels == 0){
       window.pixel_buffer.forEach(element => {
         document.getElementById(element.id).style.backgroundColor = element.color
       });
+      window.pixel_buffer = new Array(2500)
     }
   }
 })
